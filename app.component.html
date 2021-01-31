@@ -1,0 +1,9 @@
+<div class="control-section">
+    <div align='center'>
+        <ejs-chart #chart id="chart-container" (loaded) = 'complete($event)'  width = "600" title = "Weather Condition"  [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis'>
+  <e-series-collection>
+      <e-series [dataSource]='chartData' type='Spline' xName='year' yName='sales' [animation] = 'animation'  width=2> </e-series>
+  </e-series-collection>
+</ejs-chart>
+    </div>
+</div>
