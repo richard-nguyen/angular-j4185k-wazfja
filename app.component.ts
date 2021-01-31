@@ -23,42 +23,43 @@ export class AppComponent {
   public Obs : Observable<Data[]>;
   constructor(private dataService: DataService) { 
     this.Obs = new Observable((observer) => {
-      observer.next(this.dataService.getData(true));
+      observer.next(this.dataService.getData(false));
+      
       setInterval(() => {
         observer.next(this.dataService.getData(false));
-       }, 1000);
-     });
-   }
-     public complete(args: IAccLoadedEventArgs): void {
-    setInterval(() => {
-      this.dataService.updateData();
-    }, 400)    
+      }, 1000);
+    });
   }
+
+    public complete(args: IAccLoadedEventArgs): void {
+      setInterval(() => {
+        this.dataService.updateData();
+      }, 400)    
+    }
+    
     //Initializing Primary X Axis
     ngOnInit(): void {
-   this.primaryXAxis = {
-      valueType: 'DateTime'
-   };
-  this.primaryYAxis = {
-    labelFormat: '{value}°C',
-    minimum : 5,
-    maximum : 25
-  };
-  this.animation = {
-    enable : false
-  };
+      this.primaryXAxis = {
+        valueType: 'DateTime'
+      };
+      this.primaryYAxis = {
+      labelFormat: '{value}°C',
+      minimum : 5,
+      maximum : 25
+      };
+      this.animation = {
+        enable : false
+      };
   
-   this.Obs.subscribe((value) => {     
-      debugger; 
-      this.chartData = value;         
-      if (this.chart && this.chart.series[0].dataSource) {
-        this.chart.series[0].animation.enable = false;
-        this.chart.series[0].dataSource = value;
-        this.chart.refresh();
-      }
-    });    
-   }
+      this.Obs.subscribe((value) => {     
+        debugger; 
+        this.chartData = value;         
+        if (this.chart && this.chart.series[0].dataSource) {
+          this.chart.series[0].animation.enable = false;
+          this.chart.series[0].dataSource = value;
+          this.chart.refresh();
+        }
+      });    
+    }
    
-    
-
 }
